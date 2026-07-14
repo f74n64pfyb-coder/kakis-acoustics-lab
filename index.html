@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ka">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>Kaki's Acoustics Lab</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="lab.css?v=1">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <button id="menuBtn" class="icon mobile-only" aria-label="Menu">☰</button>
+    <div class="brand"><span class="brand-mark">KAL</span><div><strong>Kaki's Acoustics Lab</strong><small>Acoustic design workspace</small></div></div>
+    <div class="top-actions"><span id="saveState" class="save-state">შენახულია</span><button id="themeBtn" class="icon" title="Theme">◐</button></div>
+  </header>
+  <aside id="sidebar" class="sidebar">
+    <div class="project-card"><small>აქტიური პროექტი</small><input id="projectName" value="New acoustic project" aria-label="Project name"></div>
+    <nav>
+      <button class="nav active" data-view="dashboard"><span>⌂</span> Dashboard</button>
+      <button class="nav" data-view="room"><span>▦</span> Room Acoustics</button>
+      <button class="nav" data-view="absorber"><span>▤</span> Multi-Layer Absorber</button>
+      <button class="nav" data-view="materials"><span>◫</span> Material Library</button>
+    </nav>
+    <div class="sidebar-footer">v0.1 • Offline-ready foundation</div>
+  </aside>
+  <main class="workspace">
+    <section id="dashboard" class="view active">
+      <div class="hero"><div><p class="eyebrow">PROJECT WORKSPACE</p><h1>ოთახი და აბსორბერები ერთ პროექტში</h1><p>გადადით მოდულებს შორის — თითოეული გვერდის მდგომარეობა ავტომატურად ინახება.</p></div><button class="primary" data-open="room">Room Acoustics-ის გახსნა</button></div>
+      <div class="cards">
+        <button class="module-card" data-open="room"><span class="module-icon">▦</span><h2>Room Acoustics</h2><p>არსებული, გამართული კალკულატორი სრულად შენარჩუნებული.</p><b>გახსნა →</b></button>
+        <button class="module-card" data-open="absorber"><span class="module-icon">▤</span><h2>Multi-Layer Absorber</h2><p>ფენების კონსტრუქტორი, 63–8000 Hz ცხრილი და სრული გრაფიკი.</p><b>გახსნა →</b></button>
+        <button class="module-card" data-open="materials"><span class="module-icon">◫</span><h2>Material Library</h2><p>პოროვანი მასალების შენახვა და განმეორებით გამოყენება.</p><b>გახსნა →</b></button>
+      </div>
+    </section>
+    <section id="room" class="view room-view"><div class="view-head"><div><p class="eyebrow">MODULE</p><h1>Room Acoustics</h1></div><button id="openRoomNew" class="secondary">ცალკე ფანჯარაში</button></div><iframe id="roomFrame" src="room/index.html" title="Room Acoustics calculator"></iframe></section>
+    <section id="absorber" class="view"><div class="view-head"><div><p class="eyebrow">BETA MODULE</p><h1>Multi-Layer Absorber</h1><p>ამ ეტაპზე ზუსტი ნორმალური დაცემის მოდელი მუშაობს porous და air gap ფენებისთვის.</p></div><div class="head-actions"><button id="newDesign" class="secondary">ახალი დიზაინი</button><button id="duplicateDesign" class="secondary">დუბლირება</button></div></div>
+      <div class="absorber-grid">
+        <section class="panel builder"><div class="panel-title"><div><small>DESIGN</small><input id="designName" value="Ceiling absorber"></div><button id="addLayer" class="primary small">+ ფენა</button></div><div class="orientation"><span>ROOM SIDE</span><i></i><span>RIGID WALL</span></div><div id="layers"></div></section>
+        <section class="panel results"><div class="panel-title"><div><small>LIVE RESULTS</small><h2>Absorption coefficient</h2></div></div><canvas id="chart" width="920" height="420"></canvas><div id="octaveTable" class="octave-table"></div><p class="model-note">Model: Miki characteristic impedance / propagation constant with transfer-matrix calculation, normal incidence. Membrane, perforated and slatted layers will be added after validation.</p></section>
+      </div>
+    </section>
+    <section id="materials" class="view"><div class="view-head"><div><p class="eyebrow">LIBRARY</p><h1>Material Library</h1><p>საკუთარი მასალები ინახება ამ მოწყობილობაზე.</p></div><button id="addMaterial" class="primary">+ მასალა</button></div><div id="materialCards" class="material-grid"></div></section>
+  </main>
+</div>
+<div id="layerModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h2>ფენის დამატება</h2><button class="icon" data-close>×</button></div><button class="layer-choice" data-type="porous"><b>Porous material</b><span>მინერალური ბამბა, ქაფი, ბოჭკოვანი მასალა</span></button><button class="layer-choice" data-type="air"><b>Air gap</b><span>ჰაერის ღრუ</span></button></div></div>
+<div id="materialModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h2>ახალი მასალა</h2><button class="icon" data-close>×</button></div><label>სახელი<input id="matName" placeholder="მაგ. Rockwool 40 kg/m³"></label><label>Flow resistivity (Pa·s/m²)<input id="matFlow" inputmode="decimal" value="5000"></label><button id="saveMaterial" class="primary full">შენახვა</button></div></div>
+<script src="lab.js?v=1"></script>
+</body></html>
